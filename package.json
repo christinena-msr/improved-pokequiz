@@ -1,0 +1,31 @@
+{
+  "name": "improved-pokequiz",
+  "version": "1.0.0",
+  "description": "trivia game with pokemon",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crispysodium/improved-pokequiz.git"
+  },
+  "author": "crispysodium, setocourtney",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/crispysodium/improved-pokequiz/issues"
+  },
+  "homepage": "https://github.com/crispysodium/improved-pokequiz#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "csv": "^5.3.2",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "mysql2": "^2.1.0",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "sequelize": "^6.3.4"
+  }
+}
