@@ -3,7 +3,7 @@ const session = require("express-session");
 const passport = require("./config/passport");
 // const routes = require("./routes");
 
-const PORT = process.env.PORT || 8081;
+const PORT = process.env.PORT || 3001;
 const db = require("./models");
 
 const cors = require("cors");
@@ -73,6 +73,6 @@ db.sequelize.sync().then(function() {
     });
   });
 
-app.listen(PORT, () => {
-  console.log(`🌎 ==> API server now on port ${PORT}!`);
-});
+// app.listen(PORT, () => {
+//   console.log(`🌎 ==> API server now on port ${PORT}!`);
+// });
