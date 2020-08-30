@@ -50,5 +50,9 @@ module.exports = function(app) {
         id: req.user.id
       });
     }
+<<<<<<< HEAD
   });s
+=======
+  });
+>>>>>>> backend
 };
