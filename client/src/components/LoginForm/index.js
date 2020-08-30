@@ -1,30 +1,21 @@
 import './index.css';
 import React from 'react';
-import { Container, Row, Col, Form, FormInput, FormGroup} from 'shards-react';
+import { Container, TextField } from '@material-ui/core';
 
 const LoginForm = () => {
     return (
         <div className='login-signup-form'>
             <Container>
-                <AppBar position="static">
-                <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-                    <Tab label="Item One" {...a11yProps(0)} />
-                    <Tab label="Item Two" {...a11yProps(1)} />
-                    <Tab label="Item Three" {...a11yProps(2)} />
-                </Tabs>
-                </AppBar>
-                <TabPanel value={value} index={0}>
-                Item One
-                </TabPanel>
-                <TabPanel value={value} index={1}>
-                Item Two
-                </TabPanel>
-                <TabPanel value={value} index={2}>
-                Item Three
-                </TabPanel>
+                <div className="login-container">
+                    <form>
+                        <TextField id="username-field" label="Username" variant="outlined" />
+                        <TextField id="password-field" label="Password" variant="outlined" />
+                    </form>
+                </div>
+
             </Container>
         </div>
     )
 }
 
-export default Login;
+export default LoginForm;
