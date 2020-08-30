@@ -1,6 +1,6 @@
 const express = require("express");
 const session = require("express-session");
-const mongoose = require("mongoose");
+const mysql = require("mysql2");
 const passport = require("passport");
 const path = require("path");
 const db = require("./models");
@@ -18,12 +18,36 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Define passport authentication middleware
-passport.use()// db.User.createStrategy());
-passport.serializeUser()//db.User.serializeUser());
-passport.deserializeUser()//db.User.deserializeUser());
-
+passport.use(db.User.createStrategy());
+passport.serializeUser(db.User.serializeUser());
+passport.deserializeUser(db.User.deserializeUser());
 
 app.use(express.static(__dirname + "/client/public"));
 
 // Add cors so that frontend can talk to backend
 app.use(cors());
+
+
+// Use express sessions to keep track of our user's login status
+app.use(
+  session({ secret: "keyboard cat", resave: false, saveUninitialized: false })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+
+// initialize sql connection
+mysql.Connection();
+
+app.use(routes);
+
+// API and App routes
+app.use(routes);
+
+// Send every other request to the React app
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "./client/public/index.html"));
+});
+
+app.listen(PORT, () => {
+  console.log(`🌎 ==> API server now on port ${PORT}!`);
+});
