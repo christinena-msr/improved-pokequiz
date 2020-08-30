@@ -1,14 +1,14 @@
 const express = require("express");
 const session = require("express-session");
-<<<<<<< HEAD
-const mysql = require("mysql2");
-=======
->>>>>>> d2630b29c78094e6e7cd714c311a955127ed7bcd
-const passport = require("passport");
-const path = require("path");
-const PORT = process.env.PORT || 3001;
-const app = express();
+const passport = require("./config/passport");
+// const routes = require("./routes");
+
+const PORT = process.env.PORT || 8081;
+const db = require("./models");
+
 const cors = require("cors");
+
+const app = express();
 
 // Define express middleware
 app.use(express.urlencoded({ extended: true }));
@@ -17,21 +17,12 @@ app.use(express.json());
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
-
-<<<<<<< HEAD
-// Define passport authentication middleware
-passport.use(db.User.createStrategy());
-passport.serializeUser(db.User.serializeUser());
-passport.deserializeUser(db.User.deserializeUser());
-=======
 app.use(express.static(__dirname + "/client/public"));
 
->>>>>>> d2630b29c78094e6e7cd714c311a955127ed7bcd
-
 // Define passport authentication middleware
-// passport.use()// db.User.createStrategy());
-// passport.serializeUser()//db.User.serializeUser());
-// passport.deserializeUser()//db.User.deserializeUser());
+// passport.use(db.User.createStrategy());
+// passport.serializeUser(db.User.serializeUser());
+// passport.deserializeUser(db.User.deserializeUser());
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./client/public/index.html"));
@@ -40,7 +31,6 @@ app.get("*", (req, res) => {
 // Add cors so that frontend can talk to backend
 app.use(cors());
 
-<<<<<<< HEAD
 
 // Use express sessions to keep track of our user's login status
 app.use(
@@ -49,21 +39,40 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// initialize sql connection
-mysql.Connection();
-
-app.use(routes);
-
 // API and App routes
-app.use(routes);
+// app.use(routes);
 
 // Send every other request to the React app
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./client/public/index.html"));
 });
 
-=======
->>>>>>> d2630b29c78094e6e7cd714c311a955127ed7bcd
+// Syncing our database and logging a message to the user upon success
+db.sequelize.sync().then(function() {
+    app.listen(PORT, function() {
+      // check if we need to import csv values and not run if it already exists
+      // Import csv data after sequelize tables have been initialized
+  
+      db.Pokemon.findAll().then(result => {
+        if (result.length === 0) {
+          require("./db/import-pokemon.js");
+        }
+      });
+  
+      db.Questions.findAll().then(result => {
+        if (result.length === 0) {
+          require("./db/import-questions.js");
+        }
+      });
+  
+      console.log(
+        "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
+        PORT,
+        PORT
+      );
+    });
+  });
+
 app.listen(PORT, () => {
   console.log(`🌎 ==> API server now on port ${PORT}!`);
 });
