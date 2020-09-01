@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-import fs from "fs";
-import csv from "csv";
-import db from "../models";
-
-let countErr = 0;
-
-let input = fs.createReadStream("./db/csv/Pokemon.csv");
-let parser = csv.parse({
-=======
 var fs = require("fs");
 var csv = require("csv");
 var db = require("../models");
@@ -16,18 +6,13 @@ let countErr = 0;
 
 var input = fs.createReadStream("./db/csv/Pokemon.csv");
 var parser = csv.parse({
->>>>>>> backend
   // what to parse by
   delimiter: ",",
   // object literals instead of arrays
   columns: true
 });
 
-<<<<<<< HEAD
-let transform = csv.transform(function(row) {
-=======
 var transform = csv.transform(function(row) {
->>>>>>> backend
   // each row
   const pokemon = {
     pokeId: row.PokeId,
